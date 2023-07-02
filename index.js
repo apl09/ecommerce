@@ -6,6 +6,7 @@ app.use(express.json())
 
 app.use("/users",require("./routes/users"))
 app.use("/orders",require("./routes/orders"))
-
+app.use("/products",require("./routes/products"))
+app.use("/categories",require("./routes/categories"))
 
 app.listen(PORT, ()=>console.log(`Server started on port ${PORT}`))

@@ -1,9 +1,9 @@
-const {Order} = require("../models/index.js")
+const { Order } = require("../models/index.js")
 
 const OrderController = {
     create(req,res){
         Order.create(req.body)
-        .then(post => res.status(201).send({message:`Order ${ordernumber} succesfully created`}))
+        .then(order => res.status(201).send({message: 'Order succesfully created', order}))
         .catch(err => console.error(err))
     }
 }
