@@ -5,6 +5,8 @@ const router = express.Router()
 router.post("/", ProductController.create)
 router.get("/", ProductController.getAll)
 router.get("/id/:id", ProductController.getById)
-
+router.get("/name/:name", ProductController.getOneByName)
+router.put("id/:id", ProductController.productUpdate)
+router.delete("/id/:id", ProductController.productDelete)
 
 module.exports = router

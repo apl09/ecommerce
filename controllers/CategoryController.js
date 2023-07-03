@@ -1,5 +1,5 @@
-const { Category, Product } = require('../models/index.js')
-
+const { Category, Product, Sequelize } = require('../models/index.js')
+const {Op} = Sequelize
 const CategoryController = {
     create(req,res) {
         Category.create(req.body)
@@ -15,7 +15,36 @@ const CategoryController = {
         console.error(err)        
         res.status(500).send({ message: 'There has been a problem to show the category with products' })        
         })    
-    }
+    },
+    getById(req, res) {
+        Category.findByPk(req.params.id, {                      
+        })        
+        .then(category => res.send(category))
+        .catch((err) => {
+            console.error(err);
+            res.staturs(500).send(err)
+        })
+    },
+    getOneByName(req, res) {
+        Category.findOne({        
+            where: {        
+                title: {        
+                [Op.like]: `%${req.params.title}%`        
+            }        
+        },                      
+    })        
+    .then(category => res.send(category))
+        
+    },
+    productDelete(req, res) {
+        Category.destroy({        
+        where: {        
+        id: req.params.id        
+        }        
+        }) 
+        .then(category => res.status(201).send({message: 'Category eliminated correctly', category}))
+        .catch(err => console.error(err))
+    },            
 }
 
 module.exports = CategoryController
