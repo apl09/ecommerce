@@ -4,4 +4,4 @@ const router = express.Router()
 
 router.post("/",CategoryController.create)
 
-module.export = router
+module.exports = router
