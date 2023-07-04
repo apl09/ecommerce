@@ -55,7 +55,8 @@ const ProductController = {
         }) 
         .then(product => res.send({message: 'Product updated correctly', product}))
         .catch(err => console.error(err))
-    },            
+    },
+                
 
 }
 
