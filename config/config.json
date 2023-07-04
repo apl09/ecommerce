@@ -4,7 +4,8 @@
     "password": "Chester-09",
     "database": "The_MMA_Store",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwt_secret": "miperrofeo"
   },
   "test": {
     "username": "root",
