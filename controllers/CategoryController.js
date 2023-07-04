@@ -44,7 +44,16 @@ const CategoryController = {
         }) 
         .then(category => res.status(201).send({message: 'Category eliminated correctly', category}))
         .catch(err => console.error(err))
-    },            
+    },
+    productUpdate(req, res) {
+        Category.update(req.body, {                    
+        where: {  id: req.params.id,      
+        id: req.params.id        
+        }        
+        }) 
+        .then(category => res.send({message: 'Product updated correctly', category}))
+        .catch(err => console.error(err))
+    },                            
 }
 
 module.exports = CategoryController
