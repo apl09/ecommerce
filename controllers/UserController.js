@@ -11,7 +11,12 @@ req.body.role = "user";
 const password = bcrypt.hashSync(req.body.password,10)
 User.create({...req.body, password:password })
 .then(user => res.status(201).send({ message: 'User created correctly', user }))
-.catch(console.error)
+.catch(error =>{
+    console.error(error)
+    res.status(500).send({ message: 'There has been a problem',error })
+
+})
+
 },
 
 login(req,res){

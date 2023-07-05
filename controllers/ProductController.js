@@ -6,8 +6,12 @@ const ProductController = {
     create(req,res) {        
         Product.create(req.body)
         .then(product => res.status(201).send({message: 'Product created correctly', product}))
-        .catch(err => console.error(err))
+        .catch(err => {        
+            console.error(err)        
+            res.status(500).send({ message: 'There has been a problem',err })        
+            }) 
     },
+
     getAll(req, res) {
         Product.findAll({        
         include: [Category]        
@@ -18,6 +22,7 @@ const ProductController = {
         res.status(500).send({ message: 'There has been a problem to show the products with the category' })        
         })    
     },
+
     getById(req, res) {
         Product.findByPk(req.params.id, {                      
         })        
@@ -27,6 +32,7 @@ const ProductController = {
             res.staturs(500).send(err)
         })
     },
+
     getOneByName(req, res) {
         Product.findOne({        
             where: {        
@@ -38,6 +44,7 @@ const ProductController = {
     .then(product => res.send(product))
         
     },
+
     productDelete(req, res) {
         Product.destroy({        
         where: {        
@@ -48,6 +55,7 @@ const ProductController = {
         .catch(err => console.error(err))            
                                                            
     },
+
     productUpdate(req, res) {
         Product.update(req.body, {                    
         where: {  id: req.params.id,      
@@ -56,8 +64,31 @@ const ProductController = {
         }) 
         .then(product => res.send({message: 'Product updated correctly', product}))
         .catch(err => console.error(err))
-    },                
+    },
+    
+    getOneByPrice(req, res) {
+    Product.findOne({
+        where: {        
+        price: {        
+        [Op.like]: `%${req.params.price}%`        
+        }        
+        },                     
+        })        
+        .then(post => res.send(post))        
+        },
 
+        getInDescOrder(req, res) {
+            Product.findAll({
+              order: [['price', 'DESC']],
+            })
+              .then((products) => {
+                res.status(200).send(products); 
+              })
+              .catch((error) => {
+                console.error('Error retrieving products:', error);
+                res.status(500).send('Error retrieving products'); e
+              });
+          }
 }
 
 module.exports = ProductController

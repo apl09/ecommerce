@@ -8,11 +8,44 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Order)      
     }
   }
-  User.init({
-    name: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+  User.init(
+    {
+    name: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        notNull: {        
+        msg: "Introduce a name please",        
+        },        
+      },        
+    },
+    lastname: {
+    type: DataTypes.STRING,
+    allowNull:false,
+      validate: {
+        notNull: {        
+        msg: "Introduce lastname please",        
+        },        
+      },        
+    },
+    email: {
+    type: DataTypes.STRING,
+    allowNull:false,
+      validate: {
+        notNull: {        
+        msg: "Introduce email please",        
+        },        
+      },        
+    },
+    password: {
+    type: DataTypes.STRING,
+    allowNull:false,
+      validate: {
+        notNull: {        
+        msg: "Introduce password please",        
+        },        
+      },        
+    },
     role: DataTypes.STRING
   }, {
     sequelize,
