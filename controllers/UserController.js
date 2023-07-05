@@ -1,4 +1,4 @@
-const { User, Token, Sequelize } = require('../models/index.js');
+const { User, Token, Sequelize, Product, Order } = require('../models/index.js');
 const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { jwt_secret } = require('../config/config.json')['development'];
@@ -49,8 +49,21 @@ async logout(req, res) {
         console.log(error)
         res.status(500).send({ message: 'hubo un problema al tratar de desconectarte' })
     }
-}
+},
 
+getById(req, res) {
+    User.findByPk(req.params.id, { 
+        include: { 
+            model: Order,
+            include: Product
+        }
+    })        
+    .then(user => res.send(user))
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send(err);
+    });
+}
 }
 
 module.exports = UserController
