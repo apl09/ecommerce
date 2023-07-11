@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Chester-09",
+    "password": "cacadeperro",
     "database": "The_MMA_Store",
     "host": "127.0.0.1",
     "dialect": "mysql",
