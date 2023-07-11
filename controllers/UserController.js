@@ -42,24 +42,25 @@ const UserController = {
     });
   },
   
-  async logout(req, res) {
-    try {
-      await Token.destroy({
-        where: {
-          [Op.and]: [
-            { UserId: req.user.id },
-            { token: req.headers.authorization },
-          ],
-        },
+  logout(req, res) {
+    Token.destroy({
+      where: {
+        [Op.and]: [
+          { UserId: req.user.id },
+          { token: req.headers.authorization },
+        ],
+      },
+    })
+      .then(() => {
+        res.send({ message: "Desconectado con éxito" });
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).send({
+          message: "hubo un problema al tratar de desconectarte",
+        });
       });
-      res.send({ message: "Desconectado con éxito" });
-    } catch (error) {
-      console.log(error);
-      res
-        .status(500)
-        .send({ message: "hubo un problema al tratar de desconectarte" });
-    }
-  },
+  },                                 
 
   getById(req, res) {
     User.findByPk(req.params.id, {
